@@ -1,0 +1,27 @@
+# Open gitbash and go to the root folder of the project you want to put on github and run the following command
+ssh-keygen -t rsa -b 4096 -C "alanstrong@gmail.com"
+	2 files are geneated one is a private key id_rsa and the other a public one id_rsa.pub
+
+# Then run the agent on gitbash (need to find out what this does?????)
+eval $(ssh-agent -s)
+	returns Agent 1635  (or some other number)
+
+# run on gitbash
+ssh-add ~/.ssh/id_rsa
+	identiy added 
+
+#create a project on github and copy the project reference and run the following command in gitbash to associated the code with the project on github
+git remote add origin git@github.com:<OohFaFoo/web_weather-server.git>  (the piece in between the <> is the project reference)
+
+# in gitbash set "main" as the main branch
+git branch -M main
+
+# open the public key id_rsa.pub and copy all it's content to github
+firstly login to gitbash
+go to settings->"SSH and GPG" keys and then click the "New SSH Key" button
+give the key a name
+paste the public key that was previously created in gitbash and paste it into the "Key" section and click the "Add SSH key"
+
+# go back to gitbash and run
+git push -u origin main
+	all the code will now be pushed up to github
