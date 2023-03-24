@@ -2,11 +2,11 @@
 ssh-keygen -t rsa -b 4096 -C "alanstrong@gmail.com"
 	2 files are geneated one is a private key id_rsa and the other a public one id_rsa.pub
 
-# Then run the agent on gitbash (need to find out what this does?????)
+# Then run the SSH agent on gitbash 
 eval $(ssh-agent -s)
-	returns Agent 1635  (or some other number)
+	returns Agent 1635  (process id)
 
-# run on gitbash
+# to add the key to SSH run the following on gitbash
 ssh-add ~/.ssh/id_rsa
 	identiy added 
 
