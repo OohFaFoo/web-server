@@ -11,14 +11,13 @@ weatherForm.addEventListener("submit",(e)=>{
     messageOne.textContent = "Loading......";
     messageTwo.textContent = ""
 
-    
-    fetch("http://localhost:3000/weather?address=" + address).then((response)=>{
+    fetch("/weather?address=" + address).then((response)=>{
         response.json().then((data)=>{
             if(data.error){
                 messageOne.textContent =data.error;
             } else {
-                messageOne.textContent = data.location
-                messageTwo.textContent = data.temperature
+                messageOne.textContent = data.location + ", " + data.description
+                messageTwo.textContent = "Temperature is " + data.temperature + " degrees and feels like " + data.feelsLike + "."
             }
         });
     })

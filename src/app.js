@@ -4,8 +4,8 @@ const hbs = require('hbs');
 const {geocode} = require("./utils/geocode")
 const {forecast} = require("./utils/forecast")
 
-
 const app = express();
+const port = process.env.PORT || 3000
 
 // define paths for express config
 const viewPath = path.join(__dirname,"../templates/views")
@@ -29,7 +29,7 @@ app.get('/about', (req, res)=>{
 });
 
 app.get('/help', (req, res)=>{
-    res.render("help",{title:"Help", helpText: "Some type of help", name:"Alan Strong"});
+    res.render("help",{title:"Help", helpText: "Host for the Help page", name:"Alan Strong"});
 });
 
 app.get('/weather', (req, res)=>{
@@ -38,18 +38,17 @@ app.get('/weather', (req, res)=>{
     }
     geocode(req.query.address, (error, {longtitude,latitude} ={}) => {
         if(error){
-            return res.send(error);
+            // return res.send(error);
+            // Had to pay for geocode web call so not using it any longer, just using a default for now
+            latitude = 55;
+            longtitude = -2;
         } 
-        forecast(latitude, longtitude, (error, {location, temperature, feelsLike, description} ={}) => {
+        forecast(latitude, longtitude, (error, {location, temperature, feelsLike, description} = {}) => {
             if(error){
                 return res.send(error);
             } 
             return res.send({
-                address:req.query.address,
-                location, 
-                description, 
-                temperature, 
-                feelsLike});
+                address:req.query.address, location, description, temperature, feelsLike});
         }) 
     })
 });
@@ -62,6 +61,6 @@ app.get('*', (req, res)=>{
     res.render("errors", {errorMessage: "A 404 eror has occured. Page not found.", title:"404", name:"Alan Strong"});
 });
 
-app.listen(3000, () => {
-    console.log("Server has started on port 3000")
+app.listen(port, () => {
+    console.log("Server has started on port " + port)
 })
