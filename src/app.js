@@ -5,7 +5,7 @@ const {geocode} = require("./utils/geocode")
 const {forecast} = require("./utils/forecast")
 
 const app = express();
-const port = process.env.PORT || 8888
+const port = process.env.PORT || 3000
 
 // define paths for express config
 const viewPath = path.join(__dirname,"../templates/views")
@@ -15,7 +15,7 @@ const publicFolderPath = path.join(__dirname,"../public")
 // setup handlebars views and location
 app.set("view engine", "hbs");
 app.set("views", viewPath);
-hbs.registerPartials(partialsPath);
+hbs.registerPartials(partialsPath)
 
 // setup the detault directory - displays index if no route is given
 app.use(express.static(publicFolderPath));
